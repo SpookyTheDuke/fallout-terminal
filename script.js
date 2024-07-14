@@ -1,15 +1,15 @@
 const terminal = document.getElementById('terminal');
 
 const bootSequence = [
-    "**Vault-Tec Terminal Boot Sequence Initiated**",
+    "**Terminal Boot Sequence Initiated**",
     "",
-    "**Initialising Operating System...**",
+    "**Initialising Site_86_Operating System...**",
     "████████████████████████████████████████████████████████████████████████████████████████████",
     "",
     "**Loading System Files...**",
     "████████████████████████████████████████████████████████████████████████████████████████████",
     "",
-    "**Vault-Tec Industries (TM) System Boot Complete**",
+    "**Foundation_RAISA System Boot Complete**",
     "",
     "**Please Log In**",
     "Username: ",
@@ -33,12 +33,6 @@ function showLoginPrompt() {
     const usernameInput = document.createElement('input');
     usernameInput.setAttribute('type', 'text');
     usernameInput.setAttribute('id', 'username');
-    usernameInput.style.backgroundColor = 'black';
-    usernameInput.style.color = 'green';
-    usernameInput.style.border = 'none';
-    usernameInput.style.fontFamily = 'inherit';
-    usernameInput.style.fontSize = 'inherit';
-    usernameInput.style.outline = 'none';
     usernameLine.appendChild(document.createTextNode("Username: "));
     usernameLine.appendChild(usernameInput);
     terminal.appendChild(usernameLine);
@@ -57,12 +51,6 @@ function showPasswordPrompt() {
     const passwordInput = document.createElement('input');
     passwordInput.setAttribute('type', 'password');
     passwordInput.setAttribute('id', 'password');
-    passwordInput.style.backgroundColor = 'black';
-    passwordInput.style.color = 'green';
-    passwordInput.style.border = 'none';
-    passwordInput.style.fontFamily = 'inherit';
-    passwordInput.style.fontSize = 'inherit';
-    passwordInput.style.outline = 'none';
     passwordLine.appendChild(document.createTextNode("Password: "));
     passwordLine.appendChild(passwordInput);
     terminal.appendChild(passwordLine);
@@ -71,15 +59,51 @@ function showPasswordPrompt() {
 
     passwordInput.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
-            accessGranted();
+            validateCredentials();
         }
     });
+}
+
+function validateCredentials() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username === 'olympusrrhzeus@RAISA.gov' && password === 'fulmen deum') {
+        accessGranted();
+    } else {
+        const errorLine = document.createElement('div');
+        errorLine.textContent = "**Access Denied**";
+        terminal.appendChild(errorLine);
+    }
 }
 
 function accessGranted() {
     const grantedLine = document.createElement('div');
     grantedLine.textContent = "**Access Granted**";
     terminal.appendChild(grantedLine);
+
+    const dcbLine = document.createElement('div');
+    dcbLine.textContent = "Type 'DCB' to continue:";
+    terminal.appendChild(dcbLine);
+
+    const dcbInput = document.createElement('input');
+    dcbInput.setAttribute('type', 'text');
+    dcbInput.setAttribute('id', 'dcb');
+    terminal.appendChild(dcbInput);
+
+    dcbInput.focus();
+
+    dcbInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            if (dcbInput.value === 'DCB') {
+                window.location.href = 'https://docs.google.com/presentation/d/1Z-2Nt39fGeay_m8TPZGvFZCyNbYZsnVhZQiPesekveQ/edit?usp=sharing';
+            } else {
+                const errorLine = document.createElement('div');
+                errorLine.textContent = "**Invalid Command**";
+                terminal.appendChild(errorLine);
+            }
+        }
+    });
 }
 
 printNextLine();
